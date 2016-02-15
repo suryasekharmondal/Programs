@@ -1,0 +1,45 @@
+#include<iostream>
+#include <stdio.h>
+using namespace std;
+ 
+// Returns value of Binomial Coefficient C(n, k)
+unsigned long long int binomialCoeff(unsigned long long int n, unsigned long long int k)
+{
+    unsigned long long int res = 1;
+ 
+    // Since C(n, k) = C(n, n-k)
+    if (k > n - k)
+        k = n - k;
+ 
+    // Calculate value of [n*(n-1)*---*(n-k+1)] / [k*(k-1)*---*1]
+    for (int i = 0; i < k; ++i)
+    {
+        res = res*(n - i);
+        res /= (i + 1);
+    }
+ 
+    return res%100007;
+}
+ 
+// A Binomial coefficient based function to find nth catalan
+// number in O(n) time
+unsigned long long int catalan(int n)
+{
+    // Calculate value of 2nCn
+    unsigned long long int c = binomialCoeff(2*n, n);
+ 
+    // return 2nCn/(n+1)
+    return c/(n+1)%100007;
+}
+ 
+// Driver program to test above functions
+int main()
+{ 
+    int t,n;
+    cin>> t;
+    while(t--){
+    	cin>>n;
+    	printf("%llu\n", catalan(n-2)%100007);
+	}
+	return 0;
+}
